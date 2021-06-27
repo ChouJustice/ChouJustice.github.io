@@ -138,6 +138,10 @@
                 
                 //當按下marker...
                 marker.addEventListener('click', function() {
+                    //....
+                })
+
+                marker.addEventListener('click', function() {
                     document.querySelector('strong').innerText = `${data[0].County} ${data[0].Town}`;
 
                     let tbody = document.querySelector('tbody');
@@ -167,7 +171,7 @@
                 markers.addLayer(marker);
             });
 
-            map.addLayer(markers)
+            map.addLayer(markers);
         }
 
         window.onload = function () {
