@@ -54,7 +54,7 @@
                 <div class="row">
                     <h2 class="w-100 text-center"><strong></strong> 每人用水量統計(月份/公升)</h2>
                     <div class="col-12">
-                        <table class="table table-striped text-center">
+                        <table class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
                                     <th>1月</th>
@@ -156,7 +156,7 @@
                         let td = document.createElement('td');
                         let icon = document.createElement('i');
                         icon.classList.add('fas', 'fa-circle');
-                        icon.style.color = x.TheDailyDomesticConsumptionOfWaterPerPerson > avg ? 'red' : 'greenyellow'; 
+                        icon.style.color = parseFloat(x.TheDailyDomesticConsumptionOfWaterPerPerson) > avg ? 'red' : 'greenyellow'; 
 
                         td.appendChild(icon);
                         tagtr.appendChild(td);
