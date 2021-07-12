@@ -169,7 +169,7 @@
                 navigator.geolocation.watchPosition(res, rej);
             });
         }
-
+        
         //3.抓資料來源(Axios)
         //台灣行政區域資料
         let areaDataRequest = axios.get('https://raw.githubusercontent.com/hsh-code/FileStorage/main/%E5%8F%B0%E7%81%A3%E8%A1%8C%E6%94%BF%E5%9C%B0%E5%8D%80.json');
@@ -185,6 +185,8 @@
 
         let countrySelect = document.querySelector('#country');
         let districtSelect = document.querySelector('#district');
+
+        var map;
 
         function setMarker() {
             if (markers) markers.clearLayers(); //清空markers
@@ -338,6 +340,39 @@
         }
 
         window.onload = function () {
+            getPosition().then((result) => {
+            x = result.coords.latitude;
+            y = result.coords.longitude;
+            console.log(x, y)
+            //1.初始化地圖
+            map = L.map('map').setView([x, y], 10);
+            // var map = L.map('map', {
+            //     center: [x, y],
+            //     zoom: 10
+            // });
+
+            // 2.設定圖資來源
+            var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            var osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 19 });
+            map.addLayer(osm);
+
+            //2.2 加 icon
+            var myIcon = L.Icon.extend({
+                options: {
+                    iconUrl: './stretching-exercises.png',
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15],
+                    popupAnchor: [0, -15]
+                }
+            });
+            var locationIcon = new myIcon({ iconUrl: './jumping-dancer.png' })
+            L.icon = function (options) { return new L.Icon(options) }
+
+            L.marker([x, y], {
+                draggable: true,
+                icon: locationIcon
+            }).addTo(map).bindPopup("媽我在這!");
+
             //alert('請允許定位您目前的位置方可使用，若下拉選單仍無法使用，請重新整理頁面一次，謝謝')
             Promise.all([areaDataRequest, virusDataRequest])
                 .then(res => {
@@ -378,40 +413,10 @@
                     option2.value = '';
                     option2.innerText = '---請選擇行政區---';
                     districtSelect.appendChild(option2);
-
-                    getPosition().then(result => {
-            x = result.coords.latitude;
-            y = result.coords.longitude;
-            console.log(x, y)
-            //1.初始化地圖
-            var map = L.map('map').setView([x, y], 10);
-            // var map = L.map('map', {
-            //     center: [x, y],
-            //     zoom: 10
-            // });
-
-            // 2.設定圖資來源
-            var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-            var osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 19 });
-            map.addLayer(osm);
-
-            //2.2 加 icon
-            var myIcon = L.Icon.extend({
-                options: {
-                    iconUrl: './stretching-exercises.png',
-                    iconSize: [30, 30],
-                    iconAnchor: [15, 15],
-                    popupAnchor: [0, -15]
-                }
-            });
-            var locationIcon = new myIcon({ iconUrl: './jumping-dancer.png' })
-            L.icon = function (options) { return new L.Icon(options) }
-
-            L.marker([x, y], {
-                draggable: true,
-                icon: locationIcon
-            }).addTo(map).bindPopup("媽我在這!");
                 })
+        })
+
+            
         }
         countrySelect.onchange = function () {
             //console.log(countrySelect.selectedOptions[0]);
@@ -444,8 +449,7 @@
                     map.setView([location.Lat, location.Lng], 12)
                 }
             }
-        };
-        })
+        }
         //array groupby方法註冊
         Array.prototype.groupBy = function (prop) {
             return this.reduce(function (groups, item) {
