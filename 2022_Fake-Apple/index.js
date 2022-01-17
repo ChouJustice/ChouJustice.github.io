@@ -37,6 +37,57 @@ const appleList = [
                 ]
             },
         ]
+    },
+    {
+        type: 'iPhone',
+        name: 'iPhone 87',
+        price: 18900,
+        mainImg: './img/iphone11-select-2019-family.png',
+        colorList: [
+            { name: '紅色', color: '#ff0000', img: './img/iphone-red.png' },
+            { name: '黑色', color: '#000000', img: './img/iphone-black.png' },
+        ],
+        spec: [
+            {
+                name: '儲存裝置',
+                specDetails: [
+                    {
+                        name: '64GB',
+                        fit: 0
+                    },
+                    {
+                        name: '128GB',
+                        fit: 5000
+                    },
+                ]
+            },
+            {
+                name: '連線能力',
+                specDetails: [
+                    {
+                        name: 'Wi-Fi',
+                        fit: 0
+                    },
+                    {
+                        name: 'Wi-Fi + 行動網路',
+                        fit: 4300
+                    },
+                ]
+            },
+            {
+                name: '優饗方案',
+                specDetails: [
+                    {
+                        name: 'Eat',
+                        fit: 0
+                    },
+                    {
+                        name: 'Eat + Drink',
+                        fit: 4300
+                    },
+                ]
+            },
+        ]
     }
 ]
 
@@ -78,6 +129,8 @@ function showNavbar() {
 }
 
 function selectProduct(product) {
+    resetApple()
+
     productType.innerText = product.type
     productName.innerText = `購買${product.name}`
 
@@ -168,7 +221,7 @@ function selectProduct(product) {
                     b.setAttribute('selected', 'false')
                 })
                 btn.setAttribute('selected', 'true')
-
+                specDiv.setAttribute('use-fit', specItem.fit)
                 showPrice(product)
                 accordionBtn.innerText = specItem.name
                 accordionBtn.click()
@@ -207,5 +260,36 @@ function showPrice(product) {
     const selectedFits = Array.from(document.querySelectorAll('[fit][selected="true"]'))
     const money = selectedFits.length > 0 ? selectedFits.map(x => parseInt(x.getAttributeNode('fit').value)).reduce((a, b) => a + b) : 0
 
+    showPriceTags(money, product)
+
     priceTop.innerText = `$${product.price + money}`
+}
+
+function showPriceTags(money ,product) {
+    const priceTags = document.querySelectorAll('[fit]')
+    priceTags.forEach(tag => {
+        const fit = parseInt(tag.getAttributeNode('fit').value)
+        if (tag.parentNode.parentNode.getAttributeNode('use-fit') != null) {
+            const useFit = parseInt(tag.parentNode.parentNode.getAttributeNode('use-fit').value)
+            if (fit <= useFit) {
+                tag.querySelector('span').innerText = `NT$${product.price + money + fit - useFit}起`
+            } else {
+                tag.querySelector('span').innerText = `NT$${product.price + money + fit}起`
+            }
+        } else {
+            tag.querySelector('span').innerText = `NT$${product.price + money + fit}起`
+        }
+    })
+}
+
+function resetApple() {
+    colorArea.innerHTML = ''
+
+    const removeItem = accordionBox.querySelectorAll('.accordion-item')
+    console.log(removeItem)
+    if(removeItem.length > 1) {
+        for(let i = 1; i < removeItem.length; i++) { 
+            accordionBox.removeChild(accordionBox.children[1])
+        }
+    }
 }
