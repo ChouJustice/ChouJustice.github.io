@@ -154,6 +154,7 @@ function selectProduct(product) {
             productImg.src = item.img
             colorAreaControlBtn.innerText = item.name
             colorAreaControlBtn.click()
+            //bootstrap.Collapse.getOrCreateInstance(document.querySelector('#panelsStayOpen-color')).show()
         }
 
         const btnDiv = document.createElement('div')
