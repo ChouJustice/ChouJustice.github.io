@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="./StreetFighter./StreetFighter.css"> -->
+    <title>Street Fighter!</title>
+
+    <style>
+        body {
+            background-image: url(pic/1.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        img {
+            width: 100%;
+            vertical-align: top;
+        }
+
+        .p1 {
+            position: relative;
+            padding: 0;
+            background-color: rgba(0, 91, 209, 0.5);
+            border: solid 2px blue;
+            width: 546px;
+            height: 569px;
+        }
+
+        .p2 {
+            position: relative;
+            padding: 0;
+            background-color: rgba(209, 0, 0, 0.5);
+            border: solid 2px red;
+            width: 546px;
+            height: 569px;
+        }
+
+        .p1 > img, .p2 > img {
+            position: absolute;
+        }
+
+        .p1 > .bg, .p2 > .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: black;
+            z-index: 1;
+        }
+
+        .col-5 p {
+            position: absolute;
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: white;
+            background-color: #978d00;
+            top: 0;
+        }
+
+        [boxP1-id] {
+            width: 100%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            border: solid 2px #978d00;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+            padding: 0px;
+            margin: 0 2px;
+        }
+
+        [boxP1-id].active {
+            border: solid 5px blue;
+            -webkit-box-shadow: 0 0 20px blue;
+            box-shadow: 0 0 20px blue;
+            -webkit-transition: 0s;
+            transition: 0s;
+        }
+
+        [boxP2-id] {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+            padding: 0px;
+            margin: 0 2px;
+        }
+
+        [boxP2-id].active {
+            border: solid 5px red;
+            -webkit-box-shadow: 0 0 20px red;
+            box-shadow: 0 0 20px red;
+            -webkit-transition: 0s;
+            transition: 0s;
+        }
+
+        .modal-header {
+            background-color: #a8dadc;
+            color: #1d3557;
+        }
+
+        .modal-body {
+            background-color: #f1faee;
+        }
+
+        .modal-footer {
+            background-color: #457b9d;
+        }
+
+        .btn-secondary {
+            background-color: #e63946 !important;
+        }
+
+        .duel-result {
+            font-weight: bolder;
+            color: #1d3557;
+        }
+
+        /*# sourceMappingURL=StreetFighter.css.map */
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-5 p1">
+                <div class="bg"></div>
+                <!-- <img src="./StreetFighter/pic/Balrog.png" alt="" class='img-fluid'>
+                <p class="fs-3">Balrog</p> -->
+            </div>
+            <div class="col-2">
+                <img src="./StreetFighter/pic/VS.png" alt="">
+            </div>
+            <div class="col-5 p2">
+                <div class="bg"></div>
+                <!-- <img src="./StreetFighter/pic/Cammy.png" alt="">
+                <p class="fs-3">Cammy</p> -->
+            </div>
+        </div>
+        <div class="row mt-5 justify-content-center">
+            <div class="col-2 col-md-1" boxP2-id="1">
+                <div class="col-2 col-md-1" boxP1-id="1"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="2">
+                <div class="col-2 col-md-1" boxP1-id="2"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="3">
+                <div class="col-2 col-md-1" boxP1-id="3"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="4">
+                <div class="col-2 col-md-1" boxP1-id="4"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="5">
+                <div class="col-2 col-md-1" boxP1-id="5"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="6">
+                <div class="col-2 col-md-1" boxP1-id="6"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="7">
+                <div class="col-2 col-md-1" boxP1-id="7"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="8">
+                <div class="col-2 col-md-1" boxP1-id="8"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="9">
+                <div class="col-2 col-md-1" boxP1-id="9"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="10">
+                <div class="col-2 col-md-1" boxP1-id="10"></div>
+            </div>
+        </div>
+        <div class="row mt-3 justify-content-center">
+            <div class="col-2 col-md-1" boxP2-id="11">
+                <div class="col-2 col-md-1" boxP1-id="11"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="12">
+                <div class="col-2 col-md-1" boxP1-id="12"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="13">
+                <div class="col-2 col-md-1" boxP1-id="13"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="14">
+                <div class="col-2 col-md-1" boxP1-id="14"></div>
+            </div>
+            <div class="col-2 col-md-1" boxP2-id="15">
+                <div class="col-2 col-md-1" boxP1-id="15"></div>
+            </div>
+        </div>
+        <div class="row mt-3 justify-content-center">
+            <div class="col-2">
+                <button class="w-100 btn btn-primary" disabled="true">1P屬性</button>
+            </div>
+            <div class="col-2">
+                <button class="w-100 btn btn-dark">隨機選定</button>
+            </div>
+            <div class="col-2">
+                <button class="w-100 btn btn-danger" disabled="true">2P屬性</button>
+            </div>
+        </div>
+        <!-- 新增輸贏Modal -->
+        <div id="duel" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fs-4">決鬥結果</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center">
+                        <p class="duel-result fs-2"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+        //角色資料
+        let roleData = [
+            {
+                id: '1',
+                name: 'Balrog',
+                bigImg: './StreetFighter/pic/Balrog.png',
+                picture: './StreetFighter/pic/Balrog-H.jpg',
+                target: function () {
+                    return 'paper'
+                }
+            },
+            {
+                id: '2',
+                name: 'C.Viper',
+                bigImg: './StreetFighter/pic/C.Viper.png',
+                picture: './StreetFighter/pic/C.Viper-H.jpg',
+                target: function () {
+                    return 'stone'
+                }
+            },
+            {
+                id: '3',
+                name: 'Cammy',
+                bigImg: './StreetFighter/pic/Cammy.png',
+                picture: './StreetFighter/pic/Cammy-H.jpg',
+                target: function () {
+                    return 'scissor'
+                }
+            },
+            {
+                id: '4',
+                name: 'Chun Li',
+                bigImg: './StreetFighter/pic/Chun-Li.png',
+                picture: './StreetFighter/pic/Chun-Li-H.jpg',
+                target: function () {
+                    return 'stone'
+                }
+            },
+            {
+                id: '5',
+                name: 'El Fuerte',
+                bigImg: './StreetFighter/pic/El-Fuerte.png',
+                picture: './StreetFighter/pic/El-Fuerte-H.jpg',
+                target: function () {
+                    return 'paper'
+                }
+            },
+            {
+                id: '6',
+                name: 'Feilong',
+                bigImg: './StreetFighter/pic/Feilong.png',
+                picture: './StreetFighter/pic/Feilong-H.jpg',
+                target: function () {
+                    return 'scissor'
+                }
+            },
+            {
+                id: '7',
+                name: 'Guile',
+                bigImg: './StreetFighter/pic/Guile.png',
+                picture: './StreetFighter/pic/Guile-H.jpg',
+                target: function () {
+                    return 'scissor'
+                }
+            },
+            {
+                id: '8',
+                name: 'Guy',
+                bigImg: './StreetFighter/pic/Guy.png',
+                picture: './StreetFighter/pic/Guy-H.jpg',
+                target: function () {
+                    return 'stone'
+                }
+            },
+            {
+                id: '9',
+                name: 'Juri',
+                bigImg: './StreetFighter/pic/Juri.png',
+                picture: './StreetFighter/pic/Juri-H.jpg',
+                target: function () {
+                    return 'paper'
+                }
+            },
+            {
+                id: '10',
+                name: 'Ken',
+                bigImg: './StreetFighter/pic/Ken.png',
+                picture: './StreetFighter/pic/Ken-H.jpg',
+                target: function () {
+                    return 'stone'
+                }
+            },
+            {
+                id: '11',
+                name: 'Poison',
+                bigImg: './StreetFighter/pic/Poison.png',
+                picture: './StreetFighter/pic/Poison-H.jpg',
+                target: function () {
+                    return 'scissor'
+                }
+            },
+            {
+                id: '12',
+                name: 'Rose',
+                bigImg: './StreetFighter/pic/Rose.png',
+                picture: './StreetFighter/pic/Rose-H.jpg',
+                target: function () {
+                    return 'paper'
+                }
+            },
+            {
+                id: '13',
+                name: 'Ryu',
+                bigImg: './StreetFighter/pic/Ryu.png',
+                picture: './StreetFighter/pic/Ryu-H.jpg',
+                target: function () {
+                    return 'scissor'
+                }
+            },
+            {
+                id: '14',
+                name: 'Sakura',
+                bigImg: './StreetFighter/pic/Sakura.png',
+                picture: './StreetFighter/pic/Sakura-H.jpg',
+                target: function () {
+                    return 'stone'
+                }
+            },
+            {
+                id: '15',
+                name: 'Blanka',
+                bigImg: './StreetFighter/pic/Blanka.png',
+                picture: './StreetFighter/pic/Blanka-H.jpg',
+                target: function () {
+                    return 'paper'
+                }
+            }
+        ]
+        let p1Steps = 0
+        let p2Steps = 0
+
+        let p1AllSteps = 0
+        let p2AllSteps = 0
+        let p1currentIndex = 0
+        let p2currentIndex = 14
+
+        let p1Speed
+        let p2Speed
+
+        //DOM
+        let p1Roles = document.querySelectorAll('[boxP1-id]')
+        let p2Roles = document.querySelectorAll('[boxP2-id]')
+
+        let p1Compare
+        let p2Compare
+
+        const chooseBtn = document.querySelector('.btn-dark')
+        const p1Btn = document.querySelector('.btn-primary')
+        const p2Btn = document.querySelector('.btn-danger')
+
+        const p1Div = document.querySelector('.p1')
+        const p2Div = document.querySelector('.p2')
+
+        const p1Img = document.createElement('img')
+        const p2Img = document.createElement('img')
+        const p1NameShow = document.createElement('p')
+        const p2NameShow = document.createElement('p')
+        p1NameShow.classList.add('fs-3')
+        p2NameShow.classList.add('fs-3')
+
+        const duelResult = document.querySelector('.duel-result')
+
+        window.onload = function () {
+
+            p1Img.src = './StreetFighter/pic/nothing.png'
+            p1Img.setAttribute('target', '0')
+            p1Img.style.zIndex = 2
+            p2Img.src = './StreetFighter/pic/nothing.png'
+            p2Img.setAttribute('target', '0')
+            p2Img.style.zIndex = 2
+
+            roleData.forEach(x => {
+                let img1 = document.createElement('img')
+                img1.src = x.bigImg
+                img1.style.zIndex = 0
+                img1.setAttribute('target', x.id)
+
+                let img2 = document.createElement('img')
+                img2.src = x.bigImg
+                img2.style.zIndex = 0
+                img2.setAttribute('target', x.id)
+
+                p1Div.append(img1)
+                p2Div.append(img2)
+            })
+
+            p1Div.append(p1Img)
+            p2Div.append(p2Img)
+
+            //角色排序
+            p1Roles.forEach(role => {
+                let id = role.getAttributeNode('boxP1-id').value
+                let data = roleData.find(x => x.id == id)
+
+                let roleImg = document.createElement('img')
+                roleImg.setAttribute('src', data.picture)
+
+                role.append(roleImg)
+            })
+            //隨機選角
+            chooseBtn.onclick = function () {
+                p1Speed = 100
+                p2Speed = 100
+
+                let p1Random = Math.floor(Math.random() * roleData.length) + 1
+
+                let p2Random = Math.floor(Math.random() * roleData.length) + 1
+
+                p1Steps = p1Random + (1 * p1Roles.length)
+                p1AllSteps = p1Steps
+
+                p2Steps = p2Random + (1 * p2Roles.length)
+                p2AllSteps = p2Steps
+
+                p1TurnAround()
+            }
+            p1Btn.onclick = function () {
+                alert(p1Compare)
+            }
+            p2Btn.onclick = function () {
+                alert(p2Compare)
+            }
+        }
+        function p1TurnAround() {
+            p1Roles[p1currentIndex].classList.remove('active')
+            p1currentIndex++
+
+            if (p1currentIndex >= p1Roles.length) {
+                p1currentIndex = 0
+            }
+
+            p1Roles[p1currentIndex].classList.add('active')
+            p1Steps--
+
+            // p1Img.src = roleData[p1currentIndex].bigImg
+            Array.from(document.querySelectorAll('.p1 > [target]')).forEach(x => {
+                x.style.zIndex = 0
+            })
+            document.querySelector(`.p1 > [target="${p1currentIndex+1}"]`).style.zIndex = 2
+            p1NameShow.innerText = roleData[p1currentIndex].name
+
+            if (p1Steps > 0) {
+                chooseBtn.setAttribute('disabled', 'ture')
+                //p1Img.src = roleData[p1currentIndex].bigImg
+                //p1NameShow.innerText = roleData[p1currentIndex].name
+
+                p1Div.append(p1Img, p1NameShow)
+                setTimeout(p1TurnAround, p1Speed)
+
+                if (p1Steps < Math.floor((p1AllSteps / 3))) {
+                    p1Speed += 20
+                }
+            }
+            else {
+                p2TurnAround()
+                //p1Img.src = roleData[p1currentIndex].bigImg
+                //p1NameShow.innerText = roleData[p1currentIndex].name
+
+                p1Compare = roleData[p1currentIndex].target()
+                p1Div.append(p1Img, p1NameShow)
+            }
+        }
+        function p2TurnAround() {
+            // speed = 50
+            p2Roles[p2currentIndex].classList.remove('active')
+            p2currentIndex--
+
+            if (p2currentIndex <= 0) {
+                p2currentIndex = 14
+            }
+
+            p2Roles[p2currentIndex].classList.add('active')
+            p2Steps--
+
+            Array.from(document.querySelectorAll('.p2 > [target]')).forEach(x => {
+                x.style.zIndex = 0
+            })
+
+            if (p2Steps > 0) {
+                document.querySelector(`.p2 > [target="${p2currentIndex+1}"]`).style.zIndex = 2
+                p2NameShow.innerText = roleData[p2currentIndex].name
+
+                p2Div.append(p2Img, p2NameShow)
+                setTimeout(p2TurnAround, p2Speed)
+
+                if (p2Steps < Math.floor((p2AllSteps / 3))) {
+                    p2Speed += 20
+                }
+            }
+            else {
+                chooseBtn.removeAttribute('disabled')
+                document.querySelector(`.p2 > [target="${p2currentIndex+1}"]`).style.zIndex = 2
+                p2NameShow.innerText = roleData[p2currentIndex].name
+
+                p2Compare = roleData[p2currentIndex].target()
+
+                p2Div.append(p2Img, p2NameShow)
+                setTimeout(compare, 1000)
+                p1Btn.removeAttribute('disabled')
+                p2Btn.removeAttribute('disabled')
+            }
+        }
+        function compare() {
+            if (p1Compare === p2Compare) {
+                bootstrap.Modal.getOrCreateInstance(duel).show()
+                duelResult.innerText = '平手'
+            }
+            else if (p1Compare === 'paper') {
+                if (p2Compare === 'stone') {
+                    bootstrap.Modal.getOrCreateInstance(duel).show()
+                    duelResult.innerText = '1P Win!'
+                }
+                else {
+                    bootstrap.Modal.getOrCreateInstance(duel).show()
+                    duelResult.innerText = '2P Win!'
+                }
+            }
+            else if (p1Compare === 'stone') {
+                if (p2Compare === 'scissor') {
+                    bootstrap.Modal.getOrCreateInstance(duel).show()
+                    duelResult.innerText = '1P Win!'
+                }
+                else {
+                    bootstrap.Modal.getOrCreateInstance(duel).show()
+                    duelResult.innerText = '2P Win!'
+                }
+            }
+            else if (p1Compare === 'scissor') {
+                if (p2Compare === 'paper') {
+                    bootstrap.Modal.getOrCreateInstance(duel).show()
+                    duelResult.innerText = '1P Win!'
+                }
+                else {
+                    bootstrap.Modal.getOrCreateInstance(duel).show()
+                    duelResult.innerText = '2P Win!'
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
