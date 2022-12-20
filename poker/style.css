@@ -1,0 +1,72 @@
+/* 全域 */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 20% 60% 20%;
+    grid-template-columns: 20% 60% 20%;
+}
+
+[player] {
+    background-color: #dbdbdb;
+    display: flex;
+    align-items: center;
+}
+
+/* table */
+.table {
+    background-color: #c0ffc0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deal {
+    padding: 10px 30px;
+    border-radius: 50px;
+    background-color: #ff0000;
+    color: #ffffff;
+    font-size: 4rem;
+    border: none;
+    cursor: pointer;
+}
+
+.deal:hover {
+    background-color: #ff4d4d;
+}
+
+/*  */
+.card-box {
+    /* display: flex */
+}
+
+.card {
+    width: 82px;
+    height: 109px;
+    margin-left: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(./images/52.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+}
+
+.card:hover::after {
+    top: -20px;
+    bottom: 20px;
+}
