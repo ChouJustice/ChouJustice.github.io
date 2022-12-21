@@ -12,7 +12,8 @@
 <body>
     <div>
         <div class="img-list gray-img">
-            <img style="display: block;" src="./AltisImg/AltisGray/360EXT_1_18_2.png" alt="">
+            <img style="display: block;" src="./AltisImg/AltisGray/360EXT_1_18_1.png" alt="">
+            <img src="./AltisImg/AltisGray/360EXT_1_18_2.png" alt="">
             <img src="./AltisImg/AltisGray/360EXT_1_18_3.png" alt="">
             <img src="./AltisImg/AltisGray/360EXT_1_18_4.png" alt="">
             <img src="./AltisImg/AltisGray/360EXT_1_18_5.png" alt="">
@@ -153,12 +154,11 @@
             area.onmousemove = (e) => {
                 let imgList = Array.from(area.children)
                 imgList.forEach(img => img.style.display = 'none')
-                currentImgIndex = e.clientX % 60 + 1
+                currentImgIndex = Math.round((e.clientX / 24) % (imgList.length - 1))
                 imgList[currentImgIndex].style.display = 'block'
+                
             }
         })
-
-
 
         grayBtn.onclick = () => {
             grayImg.style.display = 'flex'
@@ -167,7 +167,7 @@
             imgListArr.forEach(area => {
                 let imgList = Array.from(area.children)
                 imgList.forEach(img => img.style.display = 'none')
-                imgList[currentImgIndex].style.display = 'block'
+                imgList[currentImgIndex - 1].style.display = 'block'
             })
         }
 
@@ -178,7 +178,7 @@
             imgListArr.forEach(area => {
                 let imgList = Array.from(area.children)
                 imgList.forEach(img => img.style.display = 'none')
-                imgList[currentImgIndex].style.display = 'block'
+                imgList[currentImgIndex - 1].style.display = 'block'
             })
         }
     </script>
