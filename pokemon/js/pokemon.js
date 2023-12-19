@@ -10,7 +10,7 @@ var app = new Vue({
         },
         //寶可夢資料
         pokemonData: {
-            pokemonRequestUri: 'https://raw.githubusercontent.com/jacko1114/20201125_homework/main/20201218_pokemon/js/pokemons.json',
+            pokemonRequestUri: 'https://raw.githubusercontent.com/ChouJustice/ChouJustice.github.io/main/pokemon/pokemons.json',
             pokemonArray: [],
             cardArray: [],
             currentPokemon: {
@@ -114,7 +114,7 @@ var app = new Vue({
 
 // const getPokemonFromJSON = () => {
 //     let xhr = new XMLHttpRequest();
-//     xhr.open("GET", "https://raw.githubusercontent.com/jacko1114/20201125_homework/main/20201218_pokemon/js/pokemons.json");
+//     xhr.open("GET", "https://raw.githubusercontent.com/ChouJustice/ChouJustice.github.io/main/pokemon/pokemons.json");
 //     xhr.send();
 //     xhr.addEventListener("load", function () {
 //         pokemonArray = JSON.parse(this.responseText);
